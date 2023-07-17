@@ -89,8 +89,14 @@ export default {
       ],
     };
   },
+  computed: {
+    newValue() {
+      return JSON.parse(JSON.stringify(this.list));
+    },
+  },
   watch: {
-    value(val) {
+    newValue(val, oldVal) {
+      if (val.length === oldVal.length) return;
       this.$emit("updateData", {
         type: "listChange",
         item: val[val.length - 1],
